@@ -31,33 +31,25 @@ public class Main {
     public static String translateSentenceToPigLatin(String sentence) {
         StringBuilder translatedSentence = new StringBuilder();
 
-        String [] words = sentence.split("\\s+");
-
-        for (String word : words) {
-            String punctuation = "";
-            if (!Character.isLetter(word.charAt(word.length() - 1))) {
-                punctuation = String.valueOf(word.charAt(word.length() - 1));
-                word = word.substring(0, word.length() - 1);
+        StringBuilder currentWord = new StringBuilder();
+        for (int i = 0; i < sentence.length(); i++) {
+            char ch = sentence.charAt(i);
+            if (Character.isLetter(ch)) {
+                currentWord.append(ch);
+            } else {
+                if (currentWord.length() > 0) {
+                    translatedSentence.append(translateToPigLatin(currentWord.toString()));
+                    currentWord.setLength(0);
+                }
+                translatedSentence.append(ch);
             }
-
-            if (word.isEmpty()) {
-                translatedSentence.append(punctuation).append(" ");
-                continue;
-            }
-
-            boolean startsWithCapital = Character.isUpperCase(word.charAt(0));
-
-            String translatedWord = translateToPigLatin(word);
-
-            if (startsWithCapital) {
-                translatedWord = Character.toUpperCase(translatedWord.charAt(0)) +
-                        translatedWord.substring(1);
-            }
-
-            translatedSentence.append(translatedWord).append(punctuation).append(" ");
-            
         }
-        return translatedSentence.toString().trim();
+
+        if (currentWord.length() > 0) {
+            translatedSentence.append(translateToPigLatin(currentWord.toString()));
+        }
+
+        return translatedSentence.toString();
     }
 
     public static void main(String[] args) {
@@ -82,3 +74,4 @@ public class Main {
         System.out.println("Input: " + input5 + " Output: " + output5);
     }
 }
+
