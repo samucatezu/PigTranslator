@@ -5,20 +5,18 @@ public class Main {
         int firstVowelIndex = -1;
         for (int i = 0; i < word.length(); i++) {
             char ch = word.charAt(i);
-            if (ch == 'a' || ch == 'e' || ch == 'i'
-             || ch == 'o' || ch == 'u' || ch == 'y'
-             ) {
+            if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u' || ch == 'y') {
                 firstVowelIndex = i;
                 break;
             }
         }
 
-        if ( firstVowelIndex == -1) {
+        if (firstVowelIndex == -1) {
             word = word + "yay";
         } else {
             String prefix = word.substring(0, firstVowelIndex);
             String stem = word.substring(firstVowelIndex);
-            word = stem + prefix + "yay";
+            word = stem + prefix + "ay";
         }
 
         if (isCapitalized) {
@@ -37,7 +35,7 @@ public class Main {
             if (Character.isLetter(ch)) {
                 currentWord.append(ch);
             } else {
-                if (currentWord.length() > 0) {
+                if (!currentWord.isEmpty()) {
                     translatedSentence.append(translateToPigLatin(currentWord.toString()));
                     currentWord.setLength(0);
                 }
@@ -45,7 +43,7 @@ public class Main {
             }
         }
 
-        if (currentWord.length() > 0) {
+        if (!currentWord.isEmpty()) {
             translatedSentence.append(translateToPigLatin(currentWord.toString()));
         }
 
@@ -74,4 +72,3 @@ public class Main {
         System.out.println("Input: " + input5 + " Output: " + output5);
     }
 }
-
